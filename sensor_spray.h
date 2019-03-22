@@ -1,17 +1,16 @@
 //Partie de Raphael: Conditions de pulvérisation
 const int relayPin= 8;               //Le relais sera placé sur la broche D5
-float Batterie;                      //Variable du niveau de batterie (%)
-bool Desherbant;                     //Variable du niveau de désherbant
-bool Herbe;                          //Variable de la détection de mavaises herbes
 
-void setup() 
+
+void init3() 
 {
- pinMode(relayPin, OUTPUT);          //Le relais est configuré pour les signaux de sortie
+pinMode(relayPin, OUTPUT);          //Le relais est configuré pour les signaux de sortie
+ 
 }
 
-void loop() 
+void spray (float Batterie, float Desherbant, bool Herbe)
 {
- if ((B!=0) && (D!=0) && (H!=0))     //Si une mauvaise herbe a été détecté et que les niveaux de batterie et de désherbant sont suffisants 
+  if ((Batterie!=0) && (Desherbant!=0) && (Herbe!=0))     //Si une mauvaise herbe a été détecté et que les niveaux de batterie et de désherbant sont suffisants 
  {
   digitalWrite(relayPin, HIGH);      //Le relais actionne la pompe
   delay(3000);
@@ -22,3 +21,4 @@ void loop()
   digitalWrite(relayPin, LOW);       //Le relais n'actionne pas la pompe        
  }
 }
+

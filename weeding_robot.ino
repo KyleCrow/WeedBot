@@ -10,6 +10,10 @@
 #define R_IN_Negative 7    
 #define L_EN 3           
 #define R_EN 5
+
+/*float Batterie;                      //Variable du niveau de batterie (%) #Adeline
+bool Desherbant;                     //Variable du niveau de désherbant #Adeline
+bool Herbe;                          //Variable de la détection de mavaises herbes #Olivier*/
  
 
 void setup() {
@@ -26,6 +30,8 @@ void setup() {
   digitalWrite(R_IN_Negative,1);
   analogWrite(L_EN,255);
   analogWrite(R_EN,255);
+  
+  init3(); //init sensor_spray
 
 
 }
