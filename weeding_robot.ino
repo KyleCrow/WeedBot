@@ -31,7 +31,8 @@ void setup() {
   analogWrite(L_EN,255);
   analogWrite(R_EN,255);
   
-  init3(); //init sensor_spray
+  init_spray(); //init sensor_spray
+  setup_ultrasonic(); //init sensor_ultrasonic
 
 
 }

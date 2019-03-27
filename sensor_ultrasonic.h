@@ -78,7 +78,7 @@ void sfr02_mesure()
 
 }
 
-void setup() 
+void setup_ultrasonic() 
 {
 
   setPwmFrequency(SpeakerPin, 8);  // PWM frequency=3906Hz
@@ -89,7 +89,7 @@ void setup()
   delay(1000);
 
 }
-void loop()
+void loop_ultrasonic()
 {
   // put your main code here, to run repeatedly:
 //   value = analogRead(potentiometer);
