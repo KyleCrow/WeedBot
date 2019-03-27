@@ -4,8 +4,8 @@
 #include "sensor_spray.h"
 #include "sensor_ultrasonic.h"
 
-#define L_IN_Positive 2   
-#define L_IN_Negative 4    
+#define L_IN_Positive 8   
+#define L_IN_Negative 9    
 #define R_IN_Positive 6    
 #define R_IN_Negative 7    
 #define L_EN 3           
