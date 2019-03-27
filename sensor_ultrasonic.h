@@ -20,7 +20,7 @@ void srf08_mesure()
   Wire.endTransmission();      // arrete la transmission
 
   // etape 2: attendre que le capteur mesure
-  delay(70);                   // le datasheet suggère au moins 65 millisecondes
+  delay(70);                   // le datasheet suggï¿½re au moins 65 millisecondes
 
   // etape 3: ordonner au capteur de retourner une lecture particuliere
   Wire.beginTransmission(adresseSRF08); // transmettre au peripherique #112
@@ -33,17 +33,14 @@ void srf08_mesure()
   // etape 5: recevoir les valeurs depuis le capteur
   if (2 <= Wire.available()) { // si 2 bytes sont recus
     reading = Wire.read();  // recevoir le byte haut (ecrit par dessus la precedente lecture)
-    reading = reading << 8;    // décaler le byte haut pour que ce soit les 8 bits haut
+    reading = reading << 8;    // decaler le byte haut pour que ce soit les 8 bits haut
     reading |= Wire.read(); // recoit le byte bas en tant que 8 bits du bas
   }
 
 
 }
 
-void setup_ultrasonic() 
-{
-  delay(1000);
-}
+ 
 void loop_ultrasonic()
 {
     srf08_mesure();

@@ -2,7 +2,7 @@
 const int relayPin= 8;               //Le relais sera placé sur la broche D5
 
 
-void init_spray() 
+void setup_spray() 
 {
 pinMode(relayPin, OUTPUT);          //Le relais est configuré pour les signaux de sortie
  
