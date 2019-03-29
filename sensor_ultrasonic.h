@@ -2,12 +2,12 @@
 
 const int adresseSRF08=124;
 
-int reading = 0;
+
 int value;
 
-void srf08_mesure()
+int srf08_mesure(int reading)
 {
-
+  reading = 0;
   // etape 1: ordonner au capteur de lire les echos
   Wire.beginTransmission(adresseSRF08); // transmettre au peripherique #112 (0x70)
   // l'adresse specifiee dans le datasheet est 224 (0xE0)
@@ -37,11 +37,11 @@ void srf08_mesure()
     reading |= Wire.read(); // recoit le byte bas en tant que 8 bits du bas
   }
 
-
+  return reading;
 }
 
  
-void loop_ultrasonic()
+/*void loop_ultrasonic()
 {
     srf08_mesure();
     value=10*(reading-10);
@@ -51,4 +51,4 @@ void loop_ultrasonic()
     }
     delay(value);
 
-}
+}*/

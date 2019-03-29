@@ -6,13 +6,14 @@
 
 #define L_IN_Positive 8   
 #define L_IN_Negative 9    
-#define R_IN_Positive 6    
+#define R_IN_Positive 10    
 #define R_IN_Negative 7    
 #define L_EN 3           
 #define R_EN 5
 #define PotentiometerPin 0
 
 float ultrasonic_measure;
+bool weed_presence;
 /*float Batterie;                      //Variable du niveau de batterie (%) #Adeline
 bool Desherbant;                     //Variable du niveau de désherbant #Adeline
 bool Herbe;                          //Variable de la détection de mavaises herbes #Olivier*/
@@ -26,7 +27,7 @@ void setup() {
   pinMode(R_IN_Negative,OUTPUT);
   pinMode(L_EN,OUTPUT); 
   pinMode(R_EN,OUTPUT);
-  pinMode(PotentiometerPin, INPUT);
+  //pinMode(PotentiometerPin, INPUT);
 
   digitalWrite(L_IN_Positive,1);
   digitalWrite(L_IN_Negative,0);
@@ -34,16 +35,18 @@ void setup() {
   digitalWrite(R_IN_Negative,0);
   analogWrite(L_EN,0);
   analogWrite(R_EN,0);
-  
-  setup_spray(); //init sensor_spray
-  //setup_ultrasonic(); //init sensor_ultrasonic
 
-
-}
+  setup_rgb();
+  setup_spray();
+  }
 
 void loop() {
   
-  ultrasonic_measure = analogRead(PotentiometerPin);
+  ultrasonic_measure = srf08_mesure(ultrasonic_measure);
+  weed_presence = get_rgb(weed_presence);
   Serial.println(ultrasonic_measure);
+  Serial.println(weed_presence);
+  
+  
 }
 
