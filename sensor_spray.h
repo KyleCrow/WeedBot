@@ -8,7 +8,7 @@ pinMode(relayPin, OUTPUT);          //Le relais est configuré pour les signaux 
  
 }
 
-void spray (float Batterie, float Desherbant, bool Herbe)
+bool spray (float Batterie, float Desherbant, bool Herbe, bool breakk)
 {
   if ((Batterie!=0) && (Desherbant!=0) && (Herbe!=0))     //Si une mauvaise herbe a été détecté et que les niveaux de batterie et de désherbant sont suffisants 
  {
