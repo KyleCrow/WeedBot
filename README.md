@@ -1,4 +1,4 @@
-# WeedingRobot
+# Weeding Robot
 Alors clairement, le fichier principal c'est "weeding_robot.ino". <br/>
 
 Section __Adeline__: <br/>
