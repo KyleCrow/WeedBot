@@ -61,12 +61,4 @@ byte batterie5[8] = {        //  Création d’un tableau de 8 octets nommé bat
 
 // A Compléter pour chaque caractère batterie1 à batterie5
 
-void caractere(void)
-{
-  lcd.createChar(0, batterie0); //  Écriture en CGRAM du caractère représentant une batterie vide
-  lcd.createChar(1, batterie1); //  Écriture en CGRAM du caractère représentant une batterie vide
-  lcd.createChar(2, batterie2); //  Écriture en CGRAM du caractère représentant une batterie vide
-  lcd.createChar(3, batterie3); //  Écriture en CGRAM du caractère représentant une batterie vide
-  lcd.createChar(4, batterie4); //  Écriture en CGRAM du caractère représentant une batterie vide
-  lcd.createChar(5, batterie5); //  Écriture en CGRAM du caractère représentant une batterie vide
-}
+
