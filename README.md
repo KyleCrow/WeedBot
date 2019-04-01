@@ -8,6 +8,8 @@ Le fichier principal est nommé "WeedBot.ino". <br/>
 Section __Adeline__: <br/>
 + sensor_battery_liquid.h<br/>
 Cette bibliothèque gère l'afficheur LCD pour indiquer le niveau de la batterie et le niveau de liquide désherbant.<br/>
++ caractere.h
+Cette bibliothèque contient les définitions des différents caractères représentants les états de la batterie.
 
 Section __Raphaël__:<br/>
 + sensor_spray.h<br/>
