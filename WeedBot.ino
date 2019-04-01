@@ -4,7 +4,6 @@
 #include "sensor_spray.h"
 #include "sensor_ultrasonic.h"
 #include "path_correction.h"
-#define PotentiometerPin 0
 // Raphael pin
 const int relayPin = 8;
 
@@ -23,6 +22,7 @@ void setup() {
   setup_rgb();
   setup_battery_liquid();
   setup_spray(relayPin);
+
   }
 
 
@@ -35,7 +35,7 @@ void loop() {
   //Matthieu
   pathCorrection(ultrasonic_measure);
 
-  //Raphael
+ /* //Raphael
   if (breakk) {
     i++;
     if (i>=43) {
@@ -52,6 +52,6 @@ void loop() {
   Serial.println(weed_presence);
 
   //Adeline
-  loop_battery_liquid();
+  loop_battery_liquid();*/
 }
 

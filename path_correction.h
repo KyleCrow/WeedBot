@@ -7,6 +7,7 @@
 
 bool order = 0;
 float preceding_ultrasonic_measure;
+const float target = 15;
 
 void setup_path_correction() {
   pinMode(L_IN_Positive,OUTPUT);
@@ -20,17 +21,25 @@ void setup_path_correction() {
   digitalWrite(L_IN_Negative,0);
   digitalWrite(R_IN_Positive,1);
   digitalWrite(R_IN_Negative,0);
-  analogWrite(L_EN,0);
-  analogWrite(R_EN,0);
+  analogWrite(L_EN,128);
+  analogWrite(R_EN,128);
 }
 
 void pathCorrection(float ultrasonic_measure) {
-  switch (order) {
+  /*switch (order) {
     case 0 :  preceding_ultrasonic_measure=ultrasonic_measure;
               order=1;
               break;
-    case 1 :  
+    case 1 :  if (ultrasonic_measure!=15) {
+       if (ultrasonic_measure-target>0) {
+          analogWrite(R_EN,128);
+          analogWrite(L_EN,128+((ultrasonic_measure-target)*2));
+       }else if (ultrasonic_measure-target<0) {
+          analogWrite(L_EN,128);
+          analogWrite(R_EN,128+(abs(ultrasonic_measure-target)*2));
+       }
+    }
     
               break;
-  }
+  }*/
 }
