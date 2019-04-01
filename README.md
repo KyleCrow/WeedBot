@@ -13,7 +13,7 @@ Section __Raphael__:<br/>
 Section __Maxime__:
 + sensor_ultrasonic.h _(fichier principal)_<br/>
 
-Section __LaPersonneQuiGereLaCouleur__: <br/>
+Section __Olivier__: <br/>
 + sensor_rgb.h _(fichier principal)_<br/>
 
 Section __Moi__: <br/>
