@@ -1,3 +1,4 @@
+//Partie de Adeline
 //includes
 #include "caractere.h"
 //#include "verification_batterie.h"

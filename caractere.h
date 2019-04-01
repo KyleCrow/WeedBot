@@ -1,3 +1,4 @@
+//Partie de Adeline
 byte batterie0[8] = {        //  Création d’un tableau de 8 octets nommé batterie0
   0b01110,                   //  caractère représentant une batterie vide
   0b11111,

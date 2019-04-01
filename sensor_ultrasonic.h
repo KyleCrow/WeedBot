@@ -1,7 +1,7 @@
+//Partie de Maxime
 #include <Wire.h>
 
 const int adresseSRF08=124;
-
 
 int value;
 
