@@ -1,6 +1,7 @@
 # WeedBot
 Ce projet a été réalisé en classe de Terminale STI2D et évalué par nos professeurs pour le bac. <br/>
 c'est un robot désherbant: son but est d'aider les agents d'entretien à désherber l'herbe qui pousse au bord des trottoirs.<br/>
+/!\ ATTENTION ce projet est encore en développement et l'état actuel du code n'est pas forcément fonctionnel ! <br/>
 
 # Organisation technique
 Le fichier principal est nommé "WeedBot.ino". <br/>
