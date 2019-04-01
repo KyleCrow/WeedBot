@@ -6,8 +6,8 @@
 
 
 //ADELINE
-#define pinNiveauHaut 3
-#define pinNiveauBas 4
+#define pinNiveauHaut 13
+#define pinNiveauBas 12
 #define analogPin 3
 #include <Wire.h>
 #include "rgb_lcd.h"
