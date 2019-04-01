@@ -4,12 +4,6 @@
 #include "sensor_spray.h"
 #include "sensor_ultrasonic.h"
 #include "path_correction.h"
-#define L_IN_Positive 8   
-#define L_IN_Negative 9    
-#define R_IN_Positive 10    
-#define R_IN_Negative 7    
-#define L_EN 3           
-#define R_EN 5
 #define PotentiometerPin 0
 // Raphael pin
 const int relayPin = 8;
@@ -25,37 +19,23 @@ bool Herbe;                          //Variable de la détection de mavaises her
 
 void setup() {
   Serial.begin(9600);
-  pinMode(L_IN_Positive,OUTPUT);
-  pinMode(L_IN_Negative,OUTPUT);
-  pinMode(R_IN_Positive,OUTPUT);
-  pinMode(R_IN_Negative,OUTPUT);
-  pinMode(L_EN,OUTPUT); 
-  pinMode(R_EN,OUTPUT);
-  //pinMode(PotentiometerPin, INPUT);
-
-  digitalWrite(L_IN_Positive,1);
-  digitalWrite(L_IN_Negative,0);
-  digitalWrite(R_IN_Positive,1);
-  digitalWrite(R_IN_Negative,0);
-  analogWrite(L_EN,0);
-  analogWrite(R_EN,0);
-
+  setup_path_correction();
   setup_rgb();
   setup_battery_liquid();
   setup_spray(relayPin);
   }
 
-void pathCorrection() {
-  
-}
-
-
 
 void loop() {
-  
+
+  //Maxime
   ultrasonic_measure = srf08_mesure(ultrasonic_measure);
   Serial.println(ultrasonic_measure);
 
+  //Matthieu
+  pathCorrection(ultrasonic_measure);
+
+  //Raphael
   if (breakk) {
     i++;
     if (i>=43) {
@@ -66,12 +46,12 @@ void loop() {
   } else {
     breakk = spray(relayPin, 100, 100, weed_presence, breakk); // les valeurs de niveau de batterie et de desherbant ont été mises a 100 pour des raisons de test
   }
-  
+
+  //Olivier
   weed_presence = get_rgb(weed_presence);
   Serial.println(weed_presence);
-  
 
-  
+  //Adeline
   loop_battery_liquid();
 }
 
