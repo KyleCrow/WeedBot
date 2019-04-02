@@ -1,13 +1,14 @@
 //MAIN
 #include "sensor_battery_liquid.h"
-#include "sensor_rgb.h"
+//#include "sensor_rgb.h"
 #include "sensor_spray.h"
 #include "sensor_ultrasonic.h"
 #include "path_correction.h"
+
 // Raphael pin
 const int relayPin = 8;
 
-float ultrasonic_measure;
+int ultrasonic_measure;
 bool weed_presence = 0;
 bool breakk = false; // cette variable permet au système de spray du desherbant de temporiser
 int i = 0;
@@ -18,10 +19,11 @@ bool Herbe;                          //Variable de la détection de mavaises her
 
 void setup() {
   Serial.begin(9600);
+  setup_ultrasonic();
   setup_path_correction();
-  setup_rgb();
-  setup_battery_liquid();
-  setup_spray(relayPin);
+  //setup_rgb();
+  //setup_battery_liquid();
+  //setup_spray(relayPin);
 
   }
 
@@ -29,8 +31,8 @@ void setup() {
 void loop() {
 
   //Maxime
-  ultrasonic_measure = srf08_mesure(ultrasonic_measure);
-  Serial.println(ultrasonic_measure);
+  ultrasonic_measure = srf08_mesure();
+  Serial.print(ultrasonic_measure);
 
   //Matthieu
   pathCorrection(ultrasonic_measure);

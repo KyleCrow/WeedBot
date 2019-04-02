@@ -3,11 +3,12 @@
 #define R_IN_Positive 10    
 #define R_IN_Negative 7    
 #define L_EN 3           
-#define R_EN 5
+#define R_EN 11
 
 bool order = 0;
 float preceding_ultrasonic_measure;
 const float target = 15;
+int correction;
 
 void setup_path_correction() {
   pinMode(L_IN_Positive,OUTPUT);
@@ -21,25 +22,33 @@ void setup_path_correction() {
   digitalWrite(L_IN_Negative,0);
   digitalWrite(R_IN_Positive,1);
   digitalWrite(R_IN_Negative,0);
-  analogWrite(L_EN,128);
-  analogWrite(R_EN,128);
+  analogWrite(L_EN,0);
+  analogWrite(R_EN,0);
 }
 
 void pathCorrection(float ultrasonic_measure) {
-  /*switch (order) {
-    case 0 :  preceding_ultrasonic_measure=ultrasonic_measure;
-              order=1;
-              break;
-    case 1 :  if (ultrasonic_measure!=15) {
+  correction = abs(ultrasonic_measure-target)*4;
+  Serial.print(" ");
+  Serial.print(correction);
+              //preceding_ultrasonic_measure=ultrasonic_measure;
+              //order=1;
+              //break;
+    if (ultrasonic_measure!=15) {
        if (ultrasonic_measure-target>0) {
-          analogWrite(R_EN,128);
-          analogWrite(L_EN,128+((ultrasonic_measure-target)*2));
+          analogWrite(R_EN,128+(correction));
+          analogWrite(L_EN,128-(correction));
+          Serial.println(" RIGHT");
        }else if (ultrasonic_measure-target<0) {
-          analogWrite(L_EN,128);
-          analogWrite(R_EN,128+(abs(ultrasonic_measure-target)*2));
+          analogWrite(L_EN,128+correction*1.5);
+          analogWrite(R_EN,128-correction);
+          Serial.println(" LEFT");
        }
+    } else {
+      analogWrite(L_EN,128);
+      analogWrite(R_EN,128);
+      Serial.println("middle");
     }
     
-              break;
-  }*/
+              //break;
+  
 }

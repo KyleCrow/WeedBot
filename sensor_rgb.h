@@ -2,7 +2,7 @@
 #define S2 4
 #define S3 5
 #define sensorOut 2
-#define OE 3
+//#define OE 3
 #define LED 6
 
 
@@ -13,9 +13,9 @@ void setup_rgb()
   pinMode(S2, OUTPUT);
   pinMode(S3, OUTPUT);
   pinMode(sensorOut, INPUT);
-  pinMode(OE, OUTPUT);
+  //pinMode(OE, OUTPUT);
   pinMode(LED, OUTPUT);
-  digitalWrite(OE, LOW);
+//  digitalWrite(OE, LOW);
   digitalWrite(LED, LOW);
   Serial.begin(9600);
 }
