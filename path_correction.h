@@ -35,12 +35,12 @@ void pathCorrection(float ultrasonic_measure) {
               //break;
     if (ultrasonic_measure!=15) {
        if (ultrasonic_measure-target>0) {
-          analogWrite(R_EN,128+(correction));
-          analogWrite(L_EN,128-(correction));
+          analogWrite(R_EN,128);
+          analogWrite(L_EN,128-correction);
           Serial.println(" RIGHT");
        }else if (ultrasonic_measure-target<0) {
-          analogWrite(L_EN,128+correction*1.5);
-          analogWrite(R_EN,128-correction);
+          analogWrite(L_EN,128);
+          analogWrite(R_EN,128-correction-12); //3*4
           Serial.println(" LEFT");
        }
     } else {
