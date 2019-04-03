@@ -1,12 +1,9 @@
 //MAIN
 #include "sensor_battery_liquid.h"
-//#include "sensor_rgb.h"
+#include "sensor_rgb.h"
 #include "sensor_spray.h"
 #include "sensor_ultrasonic.h"
 #include "path_correction.h"
-
-// Raphael pin
-const int relayPin = 8;
 
 int ultrasonic_measure;
 bool weed_presence = 0;
@@ -21,9 +18,9 @@ void setup() {
   Serial.begin(9600);
   setup_ultrasonic();
   setup_path_correction();
-  //setup_rgb();
-  //setup_battery_liquid();
-  //setup_spray(relayPin);
+  setup_rgb();
+  setup_battery_liquid();
+  setup_spray(relayPin);
 
   }
 
@@ -37,7 +34,7 @@ void loop() {
   //Matthieu
   pathCorrection(ultrasonic_measure);
 
- /* //Raphael
+  //Raphael
   if (breakk) {
     i++;
     if (i>=43) {
@@ -54,6 +51,6 @@ void loop() {
   Serial.println(weed_presence);
 
   //Adeline
-  loop_battery_liquid();*/
+  loop_battery_liquid();
 }
 

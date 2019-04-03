@@ -1,5 +1,5 @@
 //Partie de Raphael: Conditions de pulvérisation
-//const int relayPin= 8;               Le relais sera placé sur la broche D5
+const int relayPin= 8;              // Le relais sera placé sur la broche D5
 
 
 void setup_spray(int relayPin) 
