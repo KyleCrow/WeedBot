@@ -43,7 +43,7 @@ void pathCorrection(float ultrasonic_measure) {
     case 0 : preceding_ultrasonic_measure=ultrasonic_measure;
     order=1;
     break;
-    case 1 : if (ultrasonic_measure!=15) {
+    case 1 : if (correction>4) {
        if (ultrasonic_measure-target>0) {
           analogWrite(R_EN,128);
           analogWrite(L_EN,128-correction);
