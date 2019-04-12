@@ -19,7 +19,7 @@ void setup_rgb()
   //Serial.begin(9600);
 }
 
-bool get_rgb(bool presence) 
+bool get_rgb() 
 {
   digitalWrite(S2, LOW);
   digitalWrite(S3, LOW);
@@ -51,28 +51,28 @@ bool get_rgb(bool presence)
           
           if (frequency > 400 && frequency < 700)
           {
-              presence = 1;
+              return 1;
               //digitalWrite(LED, HIGH);
           }
            
           else
           {
-              presence = 0;
+              return 0;
               //digitalWrite(LED, LOW);
           }
       }
       
       else
       {
-           presence = 0;
+           return 0;
            //digitalWrite(LED, LOW);
       }
    }
    else
    {
-      presence = 0;
+      return 0;
       //digitalWrite(LED, LOW);
    }
-   return presence;
+   
 }
 

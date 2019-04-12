@@ -2,13 +2,21 @@
 #define L_IN_Negative 6    
 #define R_IN_Positive 7    
 #define R_IN_Negative 9    
-#define L_EN 10           
-#define R_EN 11
+#define R_EN 10 //L_EN sur la carte 
+#define L_EN 11 //R_EN sur la carte
 
-int order = 0;
-int preceding_ultrasonic_measure;
-const float target = 15;
-int correction;
+#define Kp 1
+#define Ki 1
+#define Kd 1
+
+const float consigne = 15;
+
+int erreur=0;
+int erreur_precedente;
+int integral=0;
+int derivee;
+int sortie;
+int defaut=128;
 
 
 void setup_path_correction() {
@@ -28,41 +36,28 @@ void setup_path_correction() {
 }
 
 void pathCorrection(float ultrasonic_measure) {
-  correction = abs(ultrasonic_measure-target)*4;
+  erreur_precedente=erreur;
+  erreur = abs(ultrasonic_measure-consigne);
+
+  integral = integral+erreur;
+  derivee = erreur-erreur_precedente;
+  sortie = Kp*erreur + Ki*integral + Kd*derivee + defaut;
   
   Serial.print(" ");
-  Serial.print(correction);
-
-  if (ultrasonic_measure = preceding_ultrasonic_measure) {
-    order = 2;
-  } else {
-    order = 1;
+  Serial.print(erreur);
+  if (erreur>1) {
+    analogWrite(R_EN,defaut);
+    analogWrite(L_EN,sortie);
+    Serial.println(" DROITE");
+  }else if (erreur<1) {
+    analogWrite(L_EN,defaut);
+    analogWrite(R_EN,sortie);
+    Serial.println(" GAUCHE");
   }
-
-  switch (order) {
-    case 0 : preceding_ultrasonic_measure=ultrasonic_measure;
-    order=1;
-    break;
-    case 1 : if (correction>4) {
-       if (ultrasonic_measure-target>0) {
-          analogWrite(R_EN,128);
-          analogWrite(L_EN,128-correction);
-          Serial.println(" RIGHT");
-       }else if (ultrasonic_measure-target<0) {
-          analogWrite(L_EN,128);
-          analogWrite(R_EN,128-correction-12); //3*4
-          Serial.println(" LEFT");
-       }
-    } else {
-      analogWrite(L_EN,128);
-      analogWrite(R_EN,128);
-      Serial.println("middle");
+    else {
+      analogWrite(L_EN,defaut);
+      analogWrite(R_EN,defaut);
+      Serial.println("MILIEU");
     }
-
-              break;
-     case 2 : analogWrite(R_EN,128);
-              analogWrite(L_EN,128-correction);
-              break;
-  }
   
 }

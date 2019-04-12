@@ -15,7 +15,6 @@ rgb_lcd lcd ;
 // Initialisation variables verification liquide
 bool reservoirH = 0;
 bool reservoirL = 0;
-bool desherbant = 0;   
 
 //Initialisation variables batterie
 unsigned int valeurBrute = 0;              
@@ -27,6 +26,7 @@ float pourcentage = 0;
 unsigned char rouge = 0 ;                
 unsigned char vert  = 0 ;              
 unsigned char bleu  = 0 ;
+int result;
 
 // Initialisation caracteres batterie
   void caractere(void) {
@@ -48,20 +48,23 @@ void setup_battery_liquid() {
 }
 
 //LIQUIDE
-void liquide(void){ 
+int liquide(void){ 
     reservoirH = digitalRead (pinNiveauHaut );
     reservoirL = !digitalRead (pinNiveauBas);
     lcd.clear();
     if(reservoirH && reservoirL){
       lcd.write("Reservoir Plein");
+      return 1;
     }
      else if  (!reservoirH && reservoirL){
       lcd.write("Pas plein");
+      return 1;
       }else if (!reservoirH && !reservoirL){
         lcd.write("Ajouter Desherb.");
-        desherbant = 1;
+        return 0;
         }else{
       lcd.write("erreur");
+      return 0;
      }
   
   }
@@ -82,7 +85,7 @@ void affichageAvec0(float valeur) {
   lcd.print(valeur);
 }
 
-void batterie(void){
+int batterie(void){
 
 // Mesure tension batterie
 
@@ -94,21 +97,25 @@ void batterie(void){
    if (tensionBatterie < 6)
   {
     pourcentage = 0;
+    return 0;
     //    Serial.println("Alternative 1");
   }
   else if (tensionBatterie < 7.3)
   {
     pourcentage = (8.3333 * tensionBatterie) - 50;
+    return 0;
     //    Serial.println("Alternative 2");
   }
   else if (tensionBatterie < 7.94)
   {
     pourcentage = (111.06 * tensionBatterie) - 800.88;
+    return 2;
     //    Serial.println("Alternative 3");
   }
   else if (tensionBatterie < 8.4)
   {
     pourcentage = (43.233 * tensionBatterie) - 263.65;
+    return 2;
     //    Serial.println("Alternative 4");
   }
   else
@@ -117,8 +124,8 @@ void batterie(void){
   
   }
 
-
-// Affichage
+}
+void Affichage(){
 
   bleu = 0;
   vert = 2.55 * pourcentage;
@@ -158,7 +165,8 @@ void batterie(void){
 }
 
 //loop function
-void loop_battery_liquid() {
-  liquide();
-  batterie();
+int loop_battery_liquid() {
+  result = liquide() + batterie();
+  Affichage();
+  return result;
 }

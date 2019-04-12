@@ -6,9 +6,8 @@
 #include "path_correction.h"
 
 int ultrasonic_measure;
-bool weed_presence = 0;
-bool breakk = false; // cette variable permet au système de spray du desherbant de temporiser
-int i = 0;
+int battery_liquid=0;
+bool conditions[3];  //0->Batterie 1->Liquide 2->Herbe
 /*float Batterie;                      //Variable du niveau de batterie (%) #Adeline
 bool Desherbant;                     //Variable du niveau de désherbant #Adeline
 bool Herbe;                          //Variable de la détection de mavaises herbes #Olivier*/
@@ -16,12 +15,11 @@ bool Herbe;                          //Variable de la détection de mavaises her
 
 void setup() {
   Serial.begin(9600);
-  setup_ultrasonic();
-  setup_path_correction();
-  setup_rgb();
   setup_battery_liquid();
-  setup_spray(relayPin);
-
+  setup_rgb();
+  setup_spray();
+  setup_path_correction();
+  setup_ultrasonic();
   }
 
 
@@ -34,23 +32,27 @@ void loop() {
   //Matthieu
   pathCorrection(ultrasonic_measure);
 
-  //Raphael
-  if (breakk) {
-    i++;
-    if (i>=43) {
-      breakk=false;
-      i=0;
-      digitalWrite(relayPin, LOW);
-    }
-  } else {
-    breakk = spray(relayPin, 100, 100, weed_presence, breakk); // les valeurs de niveau de batterie et de desherbant ont été mises a 100 pour des raisons de test
+  //Adeline
+  battery_liquid = loop_battery_liquid();
+   switch(battery_liquid) {
+    case 0 : conditions[0]=0;
+             conditions[1]=0;
+    break;
+    case 1 : conditions[0]=0;
+             conditions[1]=1;
+    break;
+    case 2 : conditions[0]=1;
+             conditions[1]=0;
+    break;
+    case 3 : conditions[0]=1;
+             conditions[1]=1;
+    break;
   }
 
   //Olivier
-  weed_presence = get_rgb(weed_presence);
-  Serial.println(weed_presence);
+  conditions[2] = get_rgb();
 
-  //Adeline
-  loop_battery_liquid();
+  //Raphael
+  spray(conditions, breakk);  
 }
 
