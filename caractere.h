@@ -61,5 +61,3 @@ byte batterie5[8] = {        //  Création d’un tableau de 8 octets nommé bat
 };
 
 // A Compléter pour chaque caractère batterie1 à batterie5
-
-

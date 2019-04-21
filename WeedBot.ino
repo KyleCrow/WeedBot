@@ -8,13 +8,9 @@
 int ultrasonic_measure;
 int battery_liquid=0;
 bool conditions[3];  //0->Batterie 1->Liquide 2->Herbe
-/*float Batterie;                      //Variable du niveau de batterie (%) #Adeline
-bool Desherbant;                     //Variable du niveau de désherbant #Adeline
-bool Herbe;                          //Variable de la détection de mavaises herbes #Olivier*/
- 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   setup_battery_liquid();
   setup_rgb();
   setup_spray();
@@ -25,15 +21,10 @@ void setup() {
 
 void loop() {
 
-  //Maxime
-  ultrasonic_measure = srf08_mesure();
-  Serial.print(ultrasonic_measure);
-
-  //Matthieu
-  pathCorrection(ultrasonic_measure);
+ 
 
   //Adeline
-  battery_liquid = loop_battery_liquid();
+   battery_liquid = loop_battery_liquid();
    switch(battery_liquid) {
     case 0 : conditions[0]=0;
              conditions[1]=0;
@@ -53,6 +44,16 @@ void loop() {
   conditions[2] = get_rgb();
 
   //Raphael
-  spray(conditions, breakk);  
-}
+  spray(conditions, pause);
 
+   //Maxime
+  ultrasonic_measure = srf08_mesure();
+  Serial.print("Mesure Ultrason: ");
+  Serial.println(ultrasonic_measure);
+
+  //Matthieu
+  pathCorrection(ultrasonic_measure, conditions);
+
+  
+  Serial.println("---------------------");
+}

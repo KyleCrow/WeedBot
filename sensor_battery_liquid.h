@@ -1,8 +1,6 @@
 //Partie de Adeline
 //includes
 #include "caractere.h"
-//#include "verification_batterie.h"
-//#include "verification_liquide.h"
 
 //definitions
 #define pinNiveauHaut 13

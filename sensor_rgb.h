@@ -75,4 +75,3 @@ bool get_rgb()
    }
    
 }
-
