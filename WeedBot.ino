@@ -1,59 +1,48 @@
 //MAIN
-#include "sensor_battery_liquid.h"
-#include "sensor_rgb.h"
-#include "sensor_spray.h"
-#include "sensor_ultrasonic.h"
-#include "path_correction.h"
+#include "capteur_batterie_liquide.h"
+//#include "capteur_rgb.h"
+#include "capteur_spray.h"
+#include "capteur_ultrason.h"
+#include "correction_trajectoire.h"
+#include "bluetooth.h"
 
-int ultrasonic_measure;
-int battery_liquid=0;
-bool conditions[3];  //0->Batterie 1->Liquide 2->Herbe
+int mesure_ultrason;
+int batterie_liquide=0;
+int nombreProjections=0;
+bool conditions[5];  //0->Batterie 1->Liquide 2->Herbe 3->commande moteurs bluetooth 4->commande correction bluetooth
 
 void setup() {
   Serial.begin(115200);
-  setup_battery_liquid();
-  setup_rgb();
+  setup_correction_trajectoire();
+  setup_bluetooth();
+  setup_batterie_liquide();
+  //setup_rgb();
   setup_spray();
-  setup_path_correction();
   setup_ultrasonic();
   }
 
-
 void loop() {
-
- 
-
+  //Matthieu
+  loop_bluetooth(conditions, nombreProjections);
+  conditions[3]=motorState;
+  conditions[4]=correctionState;
   //Adeline
-   battery_liquid = loop_battery_liquid();
-   switch(battery_liquid) {
-    case 0 : conditions[0]=0;
-             conditions[1]=0;
-    break;
-    case 1 : conditions[0]=0;
-             conditions[1]=1;
-    break;
-    case 2 : conditions[0]=1;
-             conditions[1]=0;
-    break;
-    case 3 : conditions[0]=1;
-             conditions[1]=1;
-    break;
-  }
-
+   loop_batterie_liquide(conditions);
+  
   //Olivier
-  conditions[2] = get_rgb();
+  //conditions[2] = get_rgb();
+  conditions[2]=0;
 
   //Raphael
-  spray(conditions, pause);
+  spray(conditions, nombreProjections);
 
    //Maxime
-  ultrasonic_measure = srf08_mesure();
-  Serial.print("Mesure Ultrason: ");
-  Serial.println(ultrasonic_measure);
+  mesure_ultrason = srf08_mesure();
+  //Serial.print("Mesure Ultrason: ");
+  //Serial.println(mesure_ultrason);
 
   //Matthieu
-  pathCorrection(ultrasonic_measure, conditions);
-
+  pathCorrection(mesure_ultrason, conditions, vitesseManuelle);
   
-  Serial.println("---------------------");
+  //Serial.println("---------------------");
 }
