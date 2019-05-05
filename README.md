@@ -8,23 +8,27 @@ c'est un robot désherbant: son but est d'aider les agents d'entretien à déshe
 Le fichier principal est nommé "WeedBot.ino". <br/>
 
 Section __Adeline__: <br/>
-+ sensor_battery_liquid.h<br/>
++ capteur_batterie_liquide.h<br/>
 Cette bibliothèque gère l'afficheur LCD pour indiquer le niveau de la batterie et le niveau de liquide désherbant.<br/>
 + caractere.h
 Cette bibliothèque contient les définitions des différents caractères représentants les états de la batterie.
 
 Section __Raphaël__:<br/>
-+ sensor_spray.h<br/>
++ capteur_spray.h<br/>
 Cette bibliothèque gère la fonction qui va actionner la pompe et asperger les mauvaises herbes de produit désherbant.<br/>
 
-Section __Maxime__:
-+ sensor_ultrasonic.h<br/>
+Section __Maxime__:<br/>
++ capteur_ultrason.h<br/>
 Cette bibliothèque gère la communication avec le capteur SRF02 et donne l'espace entre le robot et le trottoir.<br/>
 
 Section __Olivier__: <br/>
-+ sensor_rgb.h<br/>
++ capteur_rgb.h<br/>
 Cette bibliothèque gère la communication avec le capteur RGB et détecte la présence d'herbe.<br/>
 
 Section __Matthieu__: <br/>
 + WeedBot.ino<br/>
-C'est le programme principal, qui appelle toutes les autres bibliothèques, et gère le déplacement du robot de manière à suivre la bordure du trottoir.
+C'est le programme principal, qui appelle toutes les autres bibliothèques.<br/>
++ correction_trajectoire.h<br/>
+Cette bibliothèque gère le déplacement du robot de manière à suivre la bordure du trottoir.<br/>
++ bluetooth.h<br/>
+Cette bibliothèque gère la communication avec l'application WeedBotController.<br/> https://github.com/KyleCrow/WeedBotController
