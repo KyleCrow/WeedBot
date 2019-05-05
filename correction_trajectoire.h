@@ -1,9 +1,7 @@
 //Partie de Matthieu: correction de la trajectoire
 //definitions des ports
-#define L_IN_Positive 6   
-//#define L_IN_Negative 1    
-#define R_IN_Positive 7    
-//#define R_IN_Negative 9    
+#define L_IN_Positive 6     
+#define R_IN_Positive 7     
 #define R_EN 10  
 #define L_EN 11 
 
@@ -23,16 +21,12 @@ int sortie;
 
 void setup_correction_trajectoire() {
   pinMode(L_IN_Positive,OUTPUT);
-  //pinMode(L_IN_Negative,OUTPUT);
   pinMode(R_IN_Positive,OUTPUT);
-  //pinMode(R_IN_Negative,OUTPUT);
   pinMode(L_EN,OUTPUT); 
   pinMode(R_EN,OUTPUT);
 
   digitalWrite(L_IN_Positive,1);
-  //digitalWrite(L_IN_Negative,0);
   digitalWrite(R_IN_Positive,1);
-  //digitalWrite(R_IN_Negative,0);
   analogWrite(L_EN,0);
   analogWrite(R_EN,0);
 }
@@ -45,33 +39,18 @@ void pathCorrection(float mesure_ultrason, bool array[5], int vitesseManuelle) {
   erreur = mesure_ultrason-consigne;  //On calcule l'erreur: c'est la différence entre la distance actuelle et la consigne
   derivee = abs(erreur-erreur_precedente); //On effectue la dérivée (tendance du déplacement du robot)
   sortie = Kp*abs(erreur) + Kd*derivee + defaut;  //On additionne la vitesse de base à la dérivée et la proportionnelle
-  
-  //Serial.print("Erreur precedente: ");
-  //Serial.println(erreur_precedente);
-  //Serial.print("Erreur: ");
-  //Serial.println(erreur);
-  //Serial.print("Derivee: ");
-  //Serial.println(Kd*derivee);
-  //Serial.print("Sortie: ");
-  //Serial.println(sortie);
-  //Serial.print("Autre roue: ");
-  //Serial.println(defaut-(abs(erreur)*Kr));
-  //Serial.print("Correction: ");
-  
+
   //Conditions de correction, avec une  marge d'erreur de 1, donc la consigne est entre 14 et 16
   if (erreur>1) { //Si l'erreur est positive, le robot est trop loin et on tourne à droite
 	analogWrite(R_EN,defaut-(abs(erreur)*Kr));
 	analogWrite(L_EN,sortie);
-	//Serial.println("DROITE");
   }else if (erreur<(-1)) {  //Si l'erreur est négative, le robot est trop près et on tourne à gauche 
 	analogWrite(L_EN,defaut-(abs(erreur)*Kr));
 	analogWrite(R_EN,sortie);
-	//Serial.println("GAUCHE");
   }
 	else {  //Si on est dans la marge de 14 a 16cm, on laisse le robot aller tout droit
 	  analogWrite(L_EN,defaut);
 	  analogWrite(R_EN,defaut);
-	  //Serial.println("MILIEU");
 	}
   
 } else if ((array[0]&array[1]&array[3])==1 && (array[2]&array[4])==0) { // Si les conditions precedentes sont remplies mais que la correction de trajectoire est désactivée
@@ -80,7 +59,6 @@ void pathCorrection(float mesure_ultrason, bool array[5], int vitesseManuelle) {
 } else { //Si les conditions ne sont pas remplies le robot s'arrête
   analogWrite(L_EN,0);
   analogWrite(R_EN,0);
-  //Serial.println("STOP");
 }
 
 }

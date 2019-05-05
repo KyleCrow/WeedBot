@@ -164,7 +164,7 @@ void Affichage(){
 
 //loop function
 void loop_batterie_liquide(bool *array) {
-  array[0]=1;     //batterie();
-  array[1]=1;   //liquide(); 
+  array[0]=batterie();
+  array[1]=liquide(); 
 	Affichage();
 }

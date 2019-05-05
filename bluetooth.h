@@ -11,7 +11,6 @@ bool isTransmitting=0;
 int counter;
 int vitesseManuelle=145;
 
-
 void setupBlueToothConnection()
 {
   Serial.begin(9600); //Set Bt shield BaudRate to default baud rate 9600
