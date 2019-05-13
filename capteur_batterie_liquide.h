@@ -1,7 +1,7 @@
 //Partie de Adeline: niveau de batterie et de liquide
 //includes
 #include "caractere.h"
-#include <rgb_lcd.h>
+#include "rgb_lcd.h"
 
 //definitions des ports
 #define pinNiveauHaut 13
@@ -26,6 +26,10 @@ unsigned char vert  = 0 ;
 unsigned char bleu  = 0 ;
 int result;
 
+//Initialisation des variables de communication avec le programme principal
+bool batterie = false;
+bool liquide = false;
+
 // Initialisation caracteres batterie
 	void caractere(void) {
 	lcd.createChar(0, batterie0); //  Ecriture en CGRAM du caractere repr�sentant une batterie vide
@@ -46,23 +50,23 @@ void setup_batterie_liquide() {
 }
 
 //LIQUIDE
-int liquide(void){ 
+void verif_liquide(){ 
 		reservoirH = digitalRead (pinNiveauHaut);
 		reservoirL = !digitalRead (pinNiveauBas);
 		lcd.clear();
 		if(reservoirH && reservoirL){
 			lcd.write("Reservoir Plein");
-			return 1;
+			liquide=true;
 		}
 		 else if  (!reservoirH && reservoirL){
 			lcd.write("Pas plein");
-			return 1;
+			liquide=true;
 			}else if (!reservoirH && !reservoirL){
 				lcd.write("Ajouter Desherb.");
-				return 0;
+				liquide=false;
 				}else{
 			lcd.write("erreur");
-			return 0;
+			liquide=false;
 		 }
 	
 	}
@@ -83,7 +87,7 @@ void affichageAvec0(float valeur) {
 	lcd.print(valeur);
 }
 
-int batterie(void){
+void verif_batterie(){
 
 // Mesure tension batterie
 
@@ -95,25 +99,25 @@ int batterie(void){
 	 if (tensionBatterie < 6)
 	{
 		pourcentage = 0;
-		return 0;
+		batterie=false;
 		//    Serial.println("Alternative 1");
 	}
 	else if (tensionBatterie < 7.3)
 	{
 		pourcentage = (8.3333 * tensionBatterie) - 50;
-		return 0;
+		batterie=false;
 		//    Serial.println("Alternative 2");
 	}
 	else if (tensionBatterie < 7.94)
 	{
 		pourcentage = (111.06 * tensionBatterie) - 800.88;
-		return 1;
+		batterie=true;
 		//    Serial.println("Alternative 3");
 	}
 	else if (tensionBatterie < 8.4)
 	{
 		pourcentage = (43.233 * tensionBatterie) - 263.65;
-		return 1;
+		batterie=true;
 		//    Serial.println("Alternative 4");
 	}
 	else
@@ -163,8 +167,8 @@ void Affichage(){
 }
 
 //loop function
-void loop_batterie_liquide(bool *array) {
-  array[0]=batterie();
-  array[1]=liquide(); 
+void loop_batterie_liquide() {
+  verif_batterie();
+  verif_liquide();
 	Affichage();
 }

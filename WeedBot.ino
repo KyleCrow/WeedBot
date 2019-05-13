@@ -26,13 +26,16 @@ void loop() {
   conditions[3]=motorState;
   conditions[4]=correctionState;
   //Adeline
-   loop_batterie_liquide(conditions);
+  loop_batterie_liquide();
+  conditions[0]=batterie;
+  conditions[1]=liquide; 
   
   //Olivier
   conditions[2] = get_rgb();
 
   //Raphael
-  spray(conditions, nombreProjections);
+  spray(conditions);
+  nombreProjections=nbProjections;
 
    //Maxime
   mesure_ultrason = srf08_mesure();
